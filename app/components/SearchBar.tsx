@@ -1,6 +1,7 @@
 "use client"
 
 import React, { FormEvent, useState } from 'react'
+import { scrapeAndScoreProduct } from '../lib';
 
 const isValidAmazonProductURL = (url: string) => {
     try {
@@ -9,25 +10,43 @@ const isValidAmazonProductURL = (url: string) => {
 
         if(hostname.includes('amazon.com') || 
               hostname.includes('amazon.') || 
-              hostname.endsWith('amazon'))
+              hostname.endsWith('amazon')){
+                return true
+              }
 
         
     } catch (error) {
+      return false
         
     }
+    return false
 }
 
 const SearchBar = () => {
     const [searchUrl, setSearchUrl] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
 
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async  (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
         const isValidLink = isValidAmazonProductURL(searchUrl);
 
-        alert(isValidLink ? "Valid Link")
+
+        if(!isValidLink) return alert("Please enter a valid Amazon product link")
+
+        try {
+          setIsLoading(true);
+          const product = await scrapeAndScoreProduct(searchUrl)
+
+
+          
+        } catch (error) {
+          
+        }finally {
+          setIsLoading(false)
+        }
     }
   return (
     <form className='flex flex-wrap gap-4 mt-12'
@@ -38,9 +57,12 @@ const SearchBar = () => {
      onChange={(e) => {setSearchUrl(e.target.value)}}
      placeholder='Enter product link'
      className='searchbar-input'
+     disabled = {searchUrl === ""}
      
      />
-     <button type='submit' className='searchbar-btn'>Snag</button>
+     <button type='submit' className='searchbar-btn'>
+      {isLoading ? "Searching...": "Snag"}
+     </button>
 
     </form>
   )
