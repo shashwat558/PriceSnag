@@ -7,6 +7,7 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+  
 }
 
 @layer base {
@@ -116,7 +117,7 @@
   }
 
   .nav-logo {
-    @apply font-spaceGrotesk text-[21px] text-secondary font-bold;
+    @apply font-spaceGrotesk text-[28px] text-secondary font-bold;
   }
 
   /* PRICE INFO */
