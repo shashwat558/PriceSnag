@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
+import SearchBar from './components/SearchBar'
 
 const page = () => {
   return (
@@ -19,7 +20,7 @@ const page = () => {
           <p className='mt-6'>Comprehensive, self-serve analytics platform designed to drive conversions, boost engagement, and enhance customer retention.
 
           </p>
-          SearchBar
+          <SearchBar />
         </div>
           HeroCarousel
        </div>
