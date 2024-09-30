@@ -1,7 +1,8 @@
 "use client"
 
 import React, { FormEvent, useState } from 'react'
-import { scrapeAndScoreProduct } from '../lib';
+import { scrapeAndScoreProduct } from '../lib/actions';
+
 
 const isValidAmazonProductURL = (url: string) => {
     try {
@@ -39,6 +40,7 @@ const SearchBar = () => {
         try {
           setIsLoading(true);
           const product = await scrapeAndScoreProduct(searchUrl)
+          
 
 
           
@@ -57,7 +59,7 @@ const SearchBar = () => {
      onChange={(e) => {setSearchUrl(e.target.value)}}
      placeholder='Enter product link'
      className='searchbar-input'
-     disabled = {searchUrl === ""}
+    
      
      />
      <button type='submit' className='searchbar-btn'>

@@ -29,7 +29,7 @@ const HeroCarousel = () => {
     
     >
       {images.map((image) => (
-        <Image src={image.imgUrl} alt={image.alt} width={300} height={300}/>
+        <Image key={image.alt} src={image.imgUrl} alt={image.alt} width={300} height={300}/>
       ))}
        </Carousel>
        <Image  
