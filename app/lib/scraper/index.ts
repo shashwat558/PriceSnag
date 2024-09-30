@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as cheerio from 'cheerio';
-import { extractCurrency, extractPrice } from "../utils";
+import { extractCurrency, extractDescription, extractPrice } from "../utils";
 
 
 export default async function scrapeAmazonProduct(url: string) {
@@ -45,12 +45,16 @@ export default async function scrapeAmazonProduct(url: string) {
 
          const imageUrls = Object.keys(JSON.parse(imageOfItem));
 
+         const description = extractDescription($);
+
          const discountRate = $(".savingsPercentage").text().replace(/[-%]/, '');
 
 
          const notInStock = $('#availability span').text().trim().toLowerCase() === 'currently unavailable';
 
          const stars = $('.a-icon.a-icon-star.a-star-4.cm-cr-review-stars-spacing-big span.a-icon-alt').text().trim()[0];
+
+         const reviewsCount = $('.a-row.a-spacing-medium.averageStarRatingNumerical span.a-size-base.a-color-secondary').text().trim();
 
 
          //Construct data object with scraped data 
@@ -65,13 +69,20 @@ export default async function scrapeAmazonProduct(url: string) {
             priceHistory: [],
             discountRate: Number(discountRate),
             category: "Category",
-            ratingStars: stars
+            ratingStars: Number(stars) || 0,
+            isOutOfStock: notInStock ,
+            reviewsCount: reviewsCount,
+            lowestPrice: Number(currentPrice) || Number(originalPrice),
+            highestPrice: Number(originalPrice) || Number(currentPrice),
+            avergaePrice: Number(currentPrice) || Number(originalPrice)
 
          }
 
+         return data;
 
 
-         console.log({title, currentPrice, originalPrice, notInStock, currency, imageUrls, discountRate, stars})
+
+         
     }catch(error:any){
         console.log(error.message)
         throw new Error(`${error.message}`)
