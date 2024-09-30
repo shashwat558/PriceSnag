@@ -49,7 +49,29 @@ export default async function scrapeAmazonProduct(url: string) {
 
 
          const notInStock = $('#availability span').text().trim().toLowerCase() === 'currently unavailable';
-         console.log({title, currentPrice, originalPrice, notInStock, currency, imageUrls, discountRate})
+
+         const stars = $('.a-icon.a-icon-star.a-star-4.cm-cr-review-stars-spacing-big span.a-icon-alt').text().trim()[0];
+
+
+         //Construct data object with scraped data 
+
+         const data = {
+            url,
+            currency: currency || "$",
+            image: imageUrls[0],
+            title,
+            currentPrice: Number(currentPrice),
+            originalPrice: Number(originalPrice),
+            priceHistory: [],
+            discountRate: Number(discountRate),
+            category: "Category",
+            ratingStars: stars
+
+         }
+
+
+
+         console.log({title, currentPrice, originalPrice, notInStock, currency, imageUrls, discountRate, stars})
     }catch(error:any){
         console.log(error.message)
         throw new Error(`${error.message}`)
