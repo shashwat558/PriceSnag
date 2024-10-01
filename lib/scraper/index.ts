@@ -15,7 +15,7 @@ export default async function scrapeAmazonProduct(url: string) {
     const options = {
         auth: {
             username: `${username}-session-${sessionId}`,
-            password,
+            password,                    
         },
         host: "brd.superproxy.io",
         port,
@@ -71,14 +71,15 @@ export default async function scrapeAmazonProduct(url: string) {
             category: "Category",
             ratingStars: Number(stars) || 0,
             isOutOfStock: notInStock ,
-            reviewsCount: reviewsCount,
+            reviewsCount: String(reviewsCount),
             lowestPrice: Number(currentPrice) || Number(originalPrice),
             highestPrice: Number(originalPrice) || Number(currentPrice),
             avergaePrice: Number(currentPrice) || Number(originalPrice)
 
          }
-
+         console.log(reviewsCount)
          return data;
+         
 
 
 

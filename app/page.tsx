@@ -1,10 +1,16 @@
 import Image from 'next/image'
 import React from 'react'
-import SearchBar from './components/SearchBar'
-import HeroCarousel from './components/HeroCarousel'
+import SearchBar from '../components/SearchBar'
+import HeroCarousel from '../components/HeroCarousel'
+import { getAllProducts } from '@/lib/actions'
+import ProductCard from '@/components/ProductCard'
 
 
-const page = () => {
+const page = async() => {
+
+  const allProducts = await getAllProducts();
+
+
   return (
     <>
 
@@ -29,6 +35,13 @@ const page = () => {
      </section>
     <section  className='trending-section'>
         <h2 className='section-text'>Trending</h2>
+        {allProducts?.map((product) => (
+          //@ts-ignore
+          <ProductCard key={product._id} product={product}/>
+        ))}
+
+
+
 
         
             

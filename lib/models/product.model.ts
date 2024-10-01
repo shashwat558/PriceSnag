@@ -18,7 +18,7 @@ const productSchema = new mongoose.Schema({
     averagePrice: {type: Number},
     discountRate: {type: String},
     category: {type: String},
-    review: {type: Number},
+    reviewsCount: {type: String},
     isOutOfStock: {type: Boolean, default: false},
     users: [
         {email: {type: String, required: true}}
@@ -28,6 +28,6 @@ const productSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 
-const Product = mongoose.model("Product", productSchema);
+const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
 
 export default Product;
