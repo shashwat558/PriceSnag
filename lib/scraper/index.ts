@@ -46,6 +46,7 @@ export default async function scrapeAmazonProduct(url: string) {
          const imageUrls = Object.keys(JSON.parse(imageOfItem));
 
          const description = extractDescription($);
+         console.log(description.split('/n'))
 
          const discountRate = $(".savingsPercentage").text().replace(/[-%]/, '');
 
@@ -74,7 +75,8 @@ export default async function scrapeAmazonProduct(url: string) {
             reviewsCount: reviewsCount,
             lowestPrice: Number(currentPrice) || Number(originalPrice),
             highestPrice: Number(originalPrice) || Number(currentPrice),
-            averagePrice: Number(currentPrice) || Number(originalPrice)
+            averagePrice: Number(currentPrice) || Number(originalPrice),
+            description: description
 
          }
          

@@ -22,7 +22,8 @@ const HeroCarousel = () => {
     <div className='hero-carousel'>
         <Carousel
        showThumbs={false}
-    //    autoPlay
+       autoPlay
+       
        showArrows={false}
        showStatus={false}
        infiniteLoop     
