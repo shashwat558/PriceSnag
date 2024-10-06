@@ -89,6 +89,7 @@ const transporter = nodemailer.createTransport({
     pool: true,
     service: "hotmail",
     port: 587,
+    secure: false,
     auth: {
         user: "shashwat528@outlook.com",
         pass: process.env.EMAIL_PASSWORD,
@@ -110,7 +111,7 @@ export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) =>
     console.log("fdf")
     
   
-    transporter.sendMail(mailOptions, (error: any, info: any) => {
+    await transporter.sendMail(mailOptions, (error: any, info: any) => {
       if(error) return console.log(error+ "dgdfgfdfgfdgddf");
       
       console.log('Email sent: ', info);
