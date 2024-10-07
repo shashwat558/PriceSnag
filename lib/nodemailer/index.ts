@@ -84,36 +84,38 @@ export async function generateEmailBody(
   }
 
 
+
 console.log("dfdsfs")
+
+
+
+
 const transporter = nodemailer.createTransport({
-    pool: true,
-    service: "hotmail",
-    port: 587,
-    secure: false,
-    auth: {
-        user: "shashwat528@outlook.com",
-        pass: process.env.EMAIL_PASSWORD,
-    },
-    maxConnections: 1
-})
-
-console.log("dfdsfs")
-
+  service: 'hotmail', 
+  
+  port: 587, 
+  secure: false,
+  auth: {
+    user: 'shashwat528@outlook.com',
+    pass: process.env.EMAIL_PASSWORD, 
+  },
+  pool: true,
+  maxConnections: 1,
+  debug: true,
+  logger: true, 
+});
 
 export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) => {
-    const mailOptions = {
-      from: 'shashwat528@outlook.com',
-      to: sendTo,
-      html: emailContent.body,
-      subject: emailContent.subject,
-    }
-
-    console.log("fdf")
-    
-  
-    await transporter.sendMail(mailOptions, (error: any, info: any) => {
-      if(error) return console.log(error+ "dgdfgfdfgfdgddf");
-      
-      console.log('Email sent: ', info);
-    })
+  const mailOptions = {
+    from: 'shashwat528@outlook.com',
+    to: sendTo,
+    html: emailContent.body,
+    subject: emailContent.subject,
   }
+
+  transporter.sendMail(mailOptions, (error: any, info: any) => {
+    if(error) return console.log(error);
+    
+    console.log('Email sent: ', info);
+  })
+}
